@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ContractAI</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f5f5f5; color: #333; }
+  .header { background: #1a1a2e; color: white; padding: 20px; text-align: center; }
+  .header h1 { font-size: 1.8em; }
+  .header p { font-size: 0.9em; opacity: 0.8; margin-top: 5px; }
+  .container { max-width: 700px; margin: 30px auto; padding: 20px; }
+  .card { background: white; border-radius: 12px; padding: 25px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+  h2 { font-size: 1.2em; margin-bottom: 15px; color: #1a1a2e; }
+  label { display: block; font-size: 0.85em; font-weight: bold; margin-bottom: 5px; color: #555; }
+  select, input, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95em; margin-bottom: 15px; }
+  .btn { width: 100%; padding: 14px; border: none; border-radius: 8px; font-size: 1em; cursor: pointer; font-weight: bold; }
+  .btn-primary { background: #1a1a2e; color: white; }
+  .btn-stripe { background: #635bff; color: white; margin-bottom: 10px; }
+  .btn-bilingual { background: #0a9396; color: white; }
+  .party-block { border: 1px solid #eee; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+  .party-block h3 { font-size: 1em; margin-bottom: 10px; color: #1a1a2e; }
+  .preview-box { background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 20px; white-space: pre-wrap; font-size: 0.85em; line-height: 1.6; }
+  .paywall { text-align: center; padding: 20px; }
+  .paywall p { margin-bottom: 15px; color: #555; }
+  .hidden { display: none; }
+  .step-indicator { display: flex; justify-content: space-between; margin-bottom: 25px; }
+  .step { flex: 1; text-align: center; font-size: 0.75em; padding: 8px; background: #eee; margin: 0 3px; border-radius: 6px; }
+  .step.active { background: #1a1a2e; color: white; }
+  .qr-box { text-align: center; padding: 15px; background: #f0f0f0; border-radius: 8px; margin-top: 15px; }
+  .unique-id { font-size: 0.8em; color: #888; word-break: break-all; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>⚖️ ContractAI</h1>
+  <p>Secure • Private • Multilingual • No account needed</p>
+</div>
+
+<div class="container">
+
+  <div class="step-indicator">
+    <div class="step active" id="s1">1. Type</div>
+    <div class="step" id="s2">2. Parties</div>
+    <div class="step" id="s3">3. Terms</div>
+    <div class="step" id="s4">4. Preview</div>
+    <div class="step" id="s5">5. Download</div>
+  </div>
+
+  <div class="card" id="step1">
+    <h2>📄 Step 1: Contract Type & Language</h2>
+    <label>Category / Categoría</label>
+    <select id="category">
+      <option value="Formal Contract / Contrato Formal">Formal Contract / Contrato Formal</option>
+      <option value="Informal Agreement / Acuerdo Informal">Informal Agreement / Acuerdo Informal</option>
+      <option value="Daily Life / Vida Cotidiana">Daily Life / Vida Cotidiana</option>
+      <option value="Agriculture / Agricultura">Agriculture / Agricultura</option>
+      <option value="Labor / Trabajo">Labor / Trabajo</option>
+      <option value="Other / Otro">Other / Otro</option>
+    </select>
+    <label>Language / Idioma</label>
+    <select id="language">
+      <option value="english">English only — $4.99</option>
+      <option value="bilingual">Bilingual EN + ES — $7.99</option>
+      <option value="french">French / Français — $7.99</option>
+      <option value="portuguese">Portuguese / Português — $7.99</option>
+      <option value="german">German / Deutsch — $7.99</option>
+      <option value="russian">Russian / Русский — $7.99</option>
+      <option value="mandarin">Mandarin / 中文 — $7.99</option>
+    </select>
+    <button class="btn btn-primary" onclick="goStep(2)">Next →</button>
+  </div>
+
+  <div class="card hidden" id="step2">
+    <h2>👥 Step 2: Parties / Partes</h2>
+    <label>Number of parties / Número de partes</label>
+    <select id="numParties" onchange="buildParties()">
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+    </select>
+    <div id="partiesContainer"></div>
+    <button class="btn btn-primary" onclick="goStep(3)">Next →</button>
+  </div>
+
+  <div class="card hidden" id="step3">
+    <h2>📝 Step 3: Terms / Términos</h2>
+    <div id="termsFields"></div>
+    <button class="btn btn-primary" onclick="buildPreview()">Preview Contract →</button>
+  </div>
+
+  <div class="card hidden" id="step4">
+    <h2>👁️ Step 4: Preview / Vista Previa</h2>
+    <div class="preview-box" id="previewContent"></div>
+    <div class="qr-box">
+      <p>📎 Contract ID / ID del Contrato:</p>
+      <div class="unique-id" id="contractId"></div>
+      <p style="font-size:0.8em;margin-top:8px;color:#888;">Share this ID with all parties as proof / Comparte este ID con todas las partes como prueba</p>
+    </div>
+    <br>
+    <button class="btn btn-primary" onclick="goStep(5)">Download Contract →</button>
+  </div>
+
+  <div class="card hidden" id="step5">
+    <h2>💳 Step 5: Download / Descargar</h2>
+    <div class="paywall">
+      <p>Your contract is ready. Complete payment to download.</p>
+      <p style="font-size:0.85em;">Tu contrato está listo. Completa el pago para descargar.</p>
+      <br>
+      <div id="paymentButtons"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const STRIPE_ENGLISH = "https://buy.stripe.com/cNi14pgr2fDLeyB1nN8N202";
+const STRIPE_BILINGUAL = "https://buy.stripe.com/eVq7sN2Ac0IReyBc2r8N201";
+
+const translations = {
+  english: { start: "Start Date", end: "End Date", terms: "Terms & Conditions", obligations: "Obligations", name: "Full Name", role: "Role/Title" },
+  bilingual: { start: "Start Date / Fecha de Inicio", end: "End Date / Fecha de Fin", terms: "Terms / Términos", obligations: "Obligations / Obligaciones", name: "Full Name / Nombre Completo", role: "Role / Rol" },
+  french: { start: "Date de début", end: "Date de fin", terms: "Termes et Conditions", obligations: "Obligations", name: "Nom Complet", role: "Rôle" },
+  portuguese: { start: "Data de Início", end: "Data de Fim", terms: "Termos e Condições", obligations: "Obrigações", name: "Nome Completo", role: "Função" },
+  german: { start: "Startdatum", end: "Enddatum", terms: "Bedingungen", obligations: "Pflichten", name: "Vollständiger Name", role: "Rolle" },
+  russian: { start: "Дата начала", end: "Дата окончания", terms: "Условия", obligations: "Обязательства", name: "Полное имя", role: "Роль" },
+  mandarin: { start: "开始日期", end: "结束日期", terms: "条款与条件", obligations: "义务", name: "全名", role: "角色" }
+};
+
+function goStep(n) {
+  for(let i=1;i<=5;i++){
+    document.getElementById('step'+i).classList.add('hidden');
+    document.getElementById('s'+i).classList.remove('active');
+  }
+  document.getElementById('step'+n).classList.remove('hidden');
+  document.getElementById('s'+n).classList.add('active');
+  if(n===2) buildParties();
+  if(n===3) buildTerms();
+  if(n===5) buildPayment();
+}
+
+function buildParties() {
+  const n = parseInt(document.getElementById('numParties').value);
+  const lang = document.getElementById('language').value;
+  const t = translations[lang];
+  let html = '';
+  for(let i=1;i<=n;i++){
+    html += `<div class="party-block">
+      <h3>Party ${i} / Parte ${i}</h3>
+      <label>${t.name}</label>
+      <input type="text" id="pname${i}" placeholder="${t.name}">
+      <label>${t.role}</label>
+      <input type="text" id="prole${i}" placeholder="${t.role}">
+      <label>Number of people / Número de personas</label>
+      <select id="pcount${i}" onchange="buildPeopleFields(${i})">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <div id="people${i}"></div>
+    </div>`;
+  }
+  document.getElementById('partiesContainer').innerHTML = html;
+}
+
+function buildPeopleFields(partyNum) {
+  const count = parseInt(document.getElementById('pcount'+partyNum).value);
+  let html = '';
+  for(let j=1;j<=count;j++){
+    html += `<input type="text" id="person${partyNum}_${j}" placeholder="Person ${j} name / Nombre persona ${j}">`;
+  }
+  document.getElementById('people'+partyNum).innerHTML = html;
+}
+
+function buildTerms() {
+  const lang = document.getElementById('language').value;
+  const t = translations[lang];
+  document.getElementById('termsFields').innerHTML = `
+    <label>${t.start}</label>
+    <input type="date" id="startDate">
+    <label>${t.end}</label>
+    <input type="date" id="endDate">
+    <label>${t.terms}</label>
+    <textarea id="terms" rows="5" placeholder="${t.terms}..."></textarea>
+    <label>${t.obligations}</label>
+    <textarea id="obligations" rows="4" placeholder="${t.obligations}..."></textarea>
+  `;
+}
+
+function generateId() {
+  return 'CAI-' + Date.now() + '-' + Math.random().toString(36).substr(2,9).toUpperCase();
+}
+
+function buildPreview() {
+  const lang = document.getElementById('language').value;
+  const category = document.getElementById('category').value;
+  const n = parseInt(document.getElementById('numParties').value);
+  const startDate = document.getElementById('startDate')?.value || '';
+  const endDate = document.getElementById('endDate')?.value || '';
+  const terms = document.getElementById('terms')?.value || '';
+  const obligations = document.getElementById('obligations')?.value || '';
+  const contractId = generateId();
+
+  let partiesText = '';
+  for(let i=1;i<=n;i++){
+    const name = document.getElementById('pname'+i)?.value || 'Party '+i;
+    const role = document.getElementById('prole'+i)?.value || '';
+    partiesText += `Party ${i}: ${name} (${role})\n`;
+  }
+
+  const preview = `CONTRACT / CONTRATO
+═══════════════════════════════════
+Type: ${category}
+ID: ${contractId}
+Start: ${startDate} | End: ${endDate}
+Language: ${lang}
+═══════════════════════════════════
+
+PARTIES / PARTES:
+${partiesText}
+TERMS / TÉRMINOS:
+${terms}
+
+OBLIGATIONS / OBLIGACIONES:
+${obligations}
+
+═══════════════════════════════════
+CONTRACT COMPLETION / CIERRE:
+All parties must confirm when this
+contract is fulfilled or expired.
+Todas las partes deben confirmar
+cuando el contrato se cumpla.
+═══════════════════════════════════
+Generated by ContractAI
+Timestamp: ${new Date().toISOString()}`.trim();
+
+  document.getElementById('previewContent').textContent = preview;
+  document.getElementById('contractId').textContent = contractId;
+  goStep(4);
+}
+
+function buildPayment() {
+  const lang = document.getElementById('language').value;
+  const isEnglish = lang === 'english';
+  const price = isEnglish ? '$4.99' : '$7.99';
+  const link = isEnglish ? STRIPE_ENGLISH : STRIPE_BILINGUAL;
+  const btnClass = isEnglish ? 'btn-stripe' : 'btn-bilingual';
+
+  document.getElementById('paymentButtons').innerHTML = `
+    <a href="${link}" target="_blank">
+      <button class="btn ${btnClass}">💳 Pay ${price} & Download</button>
+    </a>
+    <p style="font-size:0.75em;color:#aaa;margin-top:10px;">
+      Secure payment via Stripe • Pago seguro via Stripe
+    </p>
+  `;
+}
+</script>
+
+</body>
+</html>
