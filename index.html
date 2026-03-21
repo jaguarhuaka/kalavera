@@ -398,8 +398,8 @@ function confirmPaymentStripe(){
 }
 
 const XMR={
-  CREATE_ENDPOINT:'/.netlify/functions/monero-create',
-  VERIFY_ENDPOINT:'/.netlify/functions/monero-verify',
+  CREATE_ENDPOINT:'/functions/monero-create',
+  VERIFY_ENDPOINT:'/functions/monero-verify',
   POLL_INTERVAL_MS:30000,
   REQUIRED_CONFIRMATIONS:3,
   state:{address:null,address_index:null,amount_xmr:null,amount_atomic:null,order_id:null,pollTimer:null,countdownTimer:null,expireAt:null,confirmed:false},
