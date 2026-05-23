@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ContractAI — Future-Grade Legal Documents</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ─────────────────────────────────────── */
+:root {
+  --bg:        #070c17;
+  --s1:        #0d1426;
+  --s2:        #111d33;
+  --s3:        #162244;
+
+  --gold:      #c9973c;
+  --gold-lt:   #e4b86a;
+  --gold-d:    rgba(201,151,60,.12);
+  --gold-b:    rgba(201,151,60,.22);
+
+  --purple:    #6d47c9;
+  --purple-lt: #8b68e0;
+  --purple-d:  rgba(109,71,201,.12);
+
+  --xmr:       #f26822;
+  --xmr-d:     rgba(242,104,34,.08);
+
+  --text:      #dde4f0;
+  --text-dim:  #6b7d9a;
+  --text-hi:   #f0f5ff;
+  --text-low:  #3e4f68;
+
+  --bdr:       rgba(201,151,60,.15);
+  --bdr-hi:    rgba(201,151,60,.35);
+  --bdr-sub:   rgba(255,255,255,.06);
+  --danger:    #e05353;
+  --ok:        #3dba7e;
+
+  --sh-card:   0 4px 28px rgba(0,0,0,.45), 0 1px 4px rgba(0,0,0,.35);
+
+  --r-sm: 6px; --r-md: 10px; --r-lg: 14px; --r-xl: 20px; --r-full: 9999px;
+  --t: 200ms ease; --t-slow: 380ms ease;
+
+  --f-serif: 'EB Garamond', Georgia, serif;
+  --f-sans:  'Inter', system-ui, sans-serif;
+  --f-mono:  'DM Mono', monospace;
+  --f-stamp: 'Special Elite', monospace;
+}
+
+/* ── RESET ───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--f-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Grid texture */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(201,151,60,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,151,60,.025) 1px, transparent 1px);
+  background-size: 56px 56px;
+  pointer-events: none; z-index: 0;
+}
+
+/* Ambient top glow */
+body::after {
+  content: '';
+  position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+  width: 900px; height: 260px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(201,151,60,.07) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ── HEADER ──────────────────────────────────────── */
+.header {
+  position: relative; z-index: 10;
+  padding: 44px 20px 32px;
+  text-align: center;
+  border-bottom: 1px solid var(--bdr);
+}
+
+.logo {
+  display: inline-flex; align-items: center; gap: 14px;
+  margin-bottom: 10px;
+}
+
+.logo-icon {
+  width: 50px; height: 50px;
+  background: linear-gradient(135deg, rgba(201,151,60,.15), rgba(201,151,60,.04));
+  border: 1px solid var(--gold-b);
+  border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold);
+  animation: icon-breathe 4s ease-in-out infinite;
+}
+.logo-icon svg { width: 24px; height: 24px; }
+
+@keyframes icon-breathe {
+  0%,100% { box-shadow: 0 0 0 0 rgba(201,151,60,0); }
+  50%      { box-shadow: 0 0 24px 2px rgba(201,151,60,.18); }
+}
+
+.logo-name {
+  font-family: var(--f-serif);
+  font-size: 2.25rem;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  background: linear-gradient(135deg, #f0e6c8 20%, var(--gold));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-sub {
+  font-family: var(--f-mono);
+  font-size: .65rem;
+  color: var(--text-dim);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.header-tags { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
+
+.tag {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--f-mono);
+  font-size: .6rem;
+  padding: 4px 10px;
+  border: 1px solid var(--bdr);
+  border-radius: var(--r-full);
+  color: var(--gold);
+  background: var(--gold-d);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.tag svg { width: 10px; height: 10px; }
+
+/* ── CONTAINER ───────────────────────────────────── */
+.container {
+  position: relative; z-index: 10;
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 36px 20px 80px;
+}
+
+/* ── STEP INDICATOR ──────────────────────────────── */
+.steps {
+  display: flex; align-items: flex-start;
+  margin-bottom: 32px;
+  padding: 0 4px;
+}
+
+.step {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center;
+  position: relative; gap: 7px;
+}
+
+.step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: calc(50% + 17px);
+  right: calc(-50% + 17px);
+  height: 1px;
+  background: var(--bdr-sub);
+  transition: background var(--t-slow);
+}
+
+.step.done:not(:last-child)::after {
+  background: linear-gradient(90deg, var(--gold-b), rgba(201,151,60,.15));
+}
+
+.step-n {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--bdr-sub);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--f-mono);
+  font-size: .65rem;
+  color: var(--text-low);
+  background: var(--s1);
+  transition: all var(--t);
+  position: relative; z-index: 1;
+}
+
+.step.active .step-n {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-d);
+  box-shadow: 0 0 14px rgba(201,151,60,.22);
+}
+
+.step.done .step-n {
+  border-color: rgba(201,151,60,.45);
+  color: var(--gold-lt);
+  background: rgba(201,151,60,.07);
+  font-size: .8rem;
+}
+
+.step-lbl {
+  font-family: var(--f-mono);
+  font-size: .58rem;
+  color: var(--text-low);
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  text-align: center;
+}
+.step.active .step-lbl { color: var(--gold); }
+.step.done  .step-lbl { color: rgba(201,151,60,.55); }
+
+/* ── CARD ────────────────────────────────────────── */
+.card {
+  background: var(--s1);
+  border: 1px solid var(--bdr);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin-bottom: 14px;
+  position: relative; overflow: hidden;
+  box-shadow: var(--sh-card);
+  animation: fade-up .35s ease;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Top shimmer line */
+.card::before {
+  content: '';
+  position: absolute; top: 0; left: 28px; right: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-b), transparent);
+}
+
+.card-title {
+  font-family: var(--f-serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-hi);
+  margin-bottom: 3px;
+  display: flex; align-items: center; gap: 10px;
+  letter-spacing: -.01em;
+}
+.card-title svg { width: 17px; height: 17px; color: var(--gold); flex-shrink: 0; }
+
+.card-sub {
+  font-family: var(--f-mono);
+  font-size: .62rem;
+  color: var(--text-dim);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+/* ── FORM ────────────────────────────────────────── */
+label {
+  display: block;
+  font-family: var(--f-mono);
+  font-size: .62rem;
+  color: var(--text-dim);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+
+select, input, textarea {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--s2);
+  border: 1px solid var(--bdr-sub);
+  border-radius: var(--r-md);
+  color: var(--text);
+  font-family: var(--f-sans);
+  font-size: .9rem;
+  margin-bottom: 18px;
+  transition: border-color var(--t), box-shadow var(--t);
+  outline: none;
+  -webkit-appearance: none; appearance: none;
+}
+
+select:focus, input:focus, textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,151,60,.1);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+select option { background: var(--s2); }
+textarea { resize: vertical; min-height: 96px; line-height: 1.65; }
+
+.sel-wrap { position: relative; }
+.sel-wrap::after {
+  content: '';
+  position: absolute; right: 14px; top: 15px;
+  width: 0; height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid var(--text-dim);
+  pointer-events: none;
+}
+
+/* ── BUTTONS ─────────────────────────────────────── */
+.btn {
+  width: 100%;
+  padding: 13px 20px;
+  border: none;
+  border-radius: var(--r-md);
+  font-family: var(--f-sans);
+  font-size: .88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--t);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn:active { transform: scale(.98); }
+
+.btn-primary {
+  background: linear-gradient(135deg, #7d5a18, var(--gold));
+  color: #0c0802;
+  font-weight: 600;
+  margin-top: 8px;
+  box-shadow: 0 2px 18px rgba(201,151,60,.22);
+}
+.btn-primary:hover { box-shadow: 0 4px 28px rgba(201,151,60,.38); transform: translateY(-1px); }
+
+.btn-stripe {
+  background: linear-gradient(135deg, #3d3095, var(--purple-lt));
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 18px rgba(109,71,201,.22);
+}
+.btn-stripe:hover { box-shadow: 0 4px 24px rgba(109,71,201,.38); transform: translateY(-1px); }
+
+.btn-xmr {
+  background: linear-gradient(135deg, #8f3408, var(--xmr));
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 18px rgba(242,104,34,.18);
+}
+.btn-xmr:hover { box-shadow: 0 4px 24px rgba(242,104,34,.32); transform: translateY(-1px); }
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--bdr-hi);
+  color: var(--gold);
+  margin-top: 16px;
+}
+.btn-outline:hover { background: var(--gold-d); }
+
+/* ── PARTY BLOCKS ────────────────────────────────── */
+.party-block {
+  border: 1px solid var(--bdr-sub);
+  border-radius: var(--r-md);
+  padding: 20px;
+  margin-bottom: 14px;
+  background: rgba(255,255,255,.018);
+}
+
+.party-block-title {
+  font-family: var(--f-serif);
+  font-size: .95rem;
+  font-weight: 500;
+  color: var(--gold-lt);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.party-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 7px var(--gold);
+  flex-shrink: 0;
+}
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.lang-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+
+.lang-badge {
+  font-family: var(--f-mono);
+  font-size: .57rem;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  display: inline-block;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.lang-badge.a { background: var(--gold-d); color: var(--gold-lt); border: 1px solid var(--gold-b); }
+.lang-badge.b { background: var(--purple-d); color: var(--purple-lt); border: 1px solid rgba(109,71,201,.28); }
+
+.bilingual-selector {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px;
+  align-items: center; margin-bottom: 18px;
+}
+.lang-conn {
+  font-family: var(--f-mono); font-size: .85rem;
+  color: var(--gold); text-align: center; padding: 8px;
+}
+
+.bil-note {
+  font-family: var(--f-mono); font-size: .66rem;
+  color: rgba(139,104,224,.85);
+  padding: 10px 14px;
+  background: var(--purple-d);
+  border: 1px solid rgba(109,71,201,.2);
+  border-radius: var(--r-sm);
+  margin-bottom: 18px;
+}
+
+/* ── PREVIEW ─────────────────────────────────────── */
+.preview-box {
+  background: var(--s2);
+  border: 1px solid var(--bdr-sub);
+  border-radius: var(--r-md);
+  padding: 20px;
+  white-space: pre-wrap;
+  font-family: var(--f-mono);
+  font-size: .73rem;
+  line-height: 1.85;
+  color: var(--text);
+  max-height: 380px;
+  overflow-y: auto;
+}
+.preview-box::-webkit-scrollbar { width: 3px; }
+.preview-box::-webkit-scrollbar-thumb { background: var(--gold-b); border-radius: 2px; }
+
+.id-box {
+  background: var(--gold-d);
+  border: 1px solid var(--gold-b);
+  border-radius: var(--r-md);
+  padding: 16px;
+  text-align: center;
+  margin-top: 18px;
+}
+.id-lbl { font-family: var(--f-mono); font-size: .6rem; color: var(--text-dim); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 6px; }
+.id-val { font-family: var(--f-mono); font-size: .76rem; color: var(--gold-lt); word-break: break-all; letter-spacing: .05em; }
+.id-note { font-size: .68rem; color: var(--text-dim); margin-top: 7px; }
+
+/* ── PAYMENT ─────────────────────────────────────── */
+.pay-header {
+  background: var(--gold-d);
+  border: 1px solid var(--gold-b);
+  border-radius: var(--r-md);
+  padding: 22px 20px;
+  text-align: center;
+  margin-bottom: 22px;
+}
+.pay-amount {
+  font-family: var(--f-serif);
+  font-size: 2.9rem;
+  font-weight: 600;
+  color: var(--gold-lt);
+  letter-spacing: -.02em;
+  line-height: 1;
+}
+.pay-desc {
+  font-family: var(--f-mono);
+  font-size: .66rem;
+  color: var(--text-dim);
+  margin-top: 8px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.divider {
+  text-align: center; position: relative; margin: 18px 0;
+}
+.divider::before {
+  content: ''; position: absolute;
+  top: 50%; left: 0; right: 0; height: 1px;
+  background: var(--bdr-sub);
+}
+.divider span {
+  position: relative;
+  background: var(--s1);
+  padding: 0 14px;
+  font-family: var(--f-mono); font-size: .62rem;
+  color: var(--text-dim); letter-spacing: .1em; text-transform: uppercase;
+}
+
+.sec-note {
+  font-family: var(--f-mono); font-size: .6rem;
+  color: var(--text-low); text-align: center;
+  margin-top: 16px; letter-spacing: .06em;
+}
+
+/* ── XMR PANEL ───────────────────────────────────── */
+.xmr-panel {
+  margin-top: 12px;
+  padding: 22px;
+  border: 1px solid rgba(242,104,34,.22);
+  border-radius: var(--r-md);
+  background: var(--xmr-d);
+}
+
+.xmr-head { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.xmr-logo {
+  width: 28px; height: 28px;
+  background: var(--xmr); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 13px; color: #000; flex-shrink: 0;
+}
+.xmr-head h3 { font-family: var(--f-serif); font-size: 1rem; font-weight: 500; color: var(--xmr); margin: 0; }
+
+.xmr-amt {
+  background: rgba(0,0,0,.25);
+  border: 1px solid rgba(242,104,34,.18);
+  border-radius: var(--r-sm);
+  padding: 14px;
+  margin-bottom: 14px;
+  text-align: center;
+}
+.xmr-amt-n { font-family: var(--f-serif); font-size: 1.55rem; font-weight: 600; color: var(--xmr); }
+.xmr-amt-u { font-family: var(--f-mono); font-size: .65rem; color: var(--text-dim); margin-top: 3px; }
+
+.xmr-addr {
+  background: rgba(0,0,0,.2);
+  border: 1px solid var(--bdr-sub);
+  border-radius: var(--r-sm);
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.xmr-addr label { font-size: .58rem; color: var(--text-low); }
+.xmr-addr-val { font-family: var(--f-mono); font-size: .63rem; color: #7a92aa; word-break: break-all; line-height: 1.65; }
+.xmr-copy {
+  margin-top: 8px;
+  background: rgba(242,104,34,.1);
+  border: 1px solid rgba(242,104,34,.22);
+  color: var(--xmr);
+  padding: 4px 12px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  font-family: var(--f-mono); font-size: .65rem;
+  transition: all var(--t);
+}
+.xmr-copy:hover { background: rgba(242,104,34,.18); }
+.xmr-copy.copied { color: var(--ok); border-color: var(--ok); background: rgba(61,186,126,.08); }
+
+.xmr-timer { font-family: var(--f-mono); font-size: .65rem; color: var(--text-low); text-align: center; margin-bottom: 14px; }
+.xmr-timer span { color: var(--xmr); font-weight: 600; }
+
+.xmr-dots { display: flex; justify-content: center; gap: 7px; margin-bottom: 14px; }
+.conf-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.1);
+  transition: all .4s ease;
+}
+.conf-dot.filled { background: var(--xmr); border-color: var(--xmr); box-shadow: 0 0 8px rgba(242,104,34,.5); }
+.conf-dot.ok     { background: var(--ok);  border-color: var(--ok);  box-shadow: 0 0 8px rgba(61,186,126,.5); }
+
+.xmr-status {
+  text-align: center;
+  padding: 10px 14px;
+  border-radius: var(--r-sm);
+  font-family: var(--f-mono); font-size: .73rem;
+  margin-bottom: 14px;
+}
+.xmr-status.waiting   { background: rgba(201,151,60,.07); color: var(--gold);      border: 1px solid rgba(201,151,60,.2); }
+.xmr-status.pending   { background: rgba(109,71,201,.07); color: var(--purple-lt); border: 1px solid rgba(109,71,201,.22); }
+.xmr-status.confirmed { background: rgba(61,186,126,.07); color: var(--ok);        border: 1px solid rgba(61,186,126,.22); }
+.xmr-status.error     { background: rgba(224,83,83,.07);  color: var(--danger);    border: 1px solid rgba(224,83,83,.22); }
+
+.xmr-manual { margin-top: 14px; border-top: 1px solid var(--bdr-sub); padding-top: 14px; }
+.xmr-manual summary { cursor: pointer; font-family: var(--f-mono); font-size: .65rem; color: var(--text-low); margin-bottom: 10px; }
+.xmr-manual input { margin-bottom: 8px; }
+.xmr-manual-btn {
+  background: var(--xmr); color: #000; border: none;
+  padding: 6px 16px; border-radius: var(--r-sm);
+  cursor: pointer; font-weight: 700;
+  font-family: var(--f-mono); font-size: .7rem;
+}
+
+/* ── SUCCESS ─────────────────────────────────────── */
+.ok-icon {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: linear-gradient(135deg, #173a28, #2a5e3f);
+  border: 1px solid rgba(61,186,126,.28);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+  box-shadow: 0 0 28px rgba(61,186,126,.18);
+  color: var(--ok);
+}
+.ok-icon svg { width: 28px; height: 28px; }
+
+.ok-title { font-family: var(--f-serif); font-size: 2rem; font-weight: 500; color: var(--text-hi); text-align: center; margin-bottom: 6px; }
+.ok-sub { font-family: var(--f-mono); font-size: .65rem; color: var(--text-dim); letter-spacing: .14em; text-transform: uppercase; text-align: center; margin-bottom: 24px; }
+
+.ok-info {
+  background: rgba(61,186,126,.05);
+  border: 1px solid rgba(61,186,126,.14);
+  border-radius: var(--r-md);
+  padding: 18px 20px; margin-bottom: 22px;
+}
+.ok-info-lbl { font-family: var(--f-mono); font-size: .6rem; color: var(--ok); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; }
+.ok-info p { font-size: .84rem; color: var(--text); line-height: 1.7; }
+
+.ok-id { font-family: var(--f-mono); font-size: .7rem; color: var(--text-dim); text-align: center; margin-bottom: 32px; }
+.ok-id span { color: var(--gold); }
+
+.ok-foot { text-align: center; padding-top: 24px; border-top: 1px solid var(--bdr-sub); }
+.ok-cat { width: 50px; height: 50px; object-fit: contain; display: block; margin: 0 auto 12px; opacity: .72; }
+.ok-quote { font-family: var(--f-stamp); font-size: .7rem; color: var(--text-low); line-height: 1.75; max-width: 270px; margin: 0 auto; font-style: italic; }
+.ok-attr { font-family: var(--f-stamp); font-size: .58rem; color: var(--text-low); margin-top: 8px; opacity: .7; }
+
+/* ── HELPERS ─────────────────────────────────────── */
+.optional { font-family: var(--f-mono); font-size: .56rem; color: var(--text-low); margin-left: 5px; text-transform: lowercase; letter-spacing: 0; }
+.hidden { display: none !important; }
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media (max-width: 768px) {
+  .logo-name { font-size: 1.9rem; }
+  .container { padding: 24px 16px 64px; }
+  .card { padding: 22px 18px; }
+  .step-lbl { display: none; }
+  .pay-amount { font-size: 2.4rem; }
+}
+@media (max-width: 500px) {
+  .grid-2, .lang-pair, .bilingual-selector { grid-template-columns: 1fr; }
+  .lang-conn { display: none; }
+}
+@media (max-width: 375px) {
+  .logo-name { font-size: 1.6rem; }
+  .logo-icon { width: 42px; height: 42px; }
+}
+
+/* ── REDUCED MOTION ──────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+        <line x1="12" y1="2" x2="12" y2="22"/>
+        <path d="M5 7l7-5 7 5"/>
+        <path d="M2 11c0 3.3 1.3 5.5 3 5.5s3-2.2 3-5.5"/>
+        <line x1="2" y1="11" x2="8" y2="11"/>
+        <path d="M16 11c0 3.3 1.3 5.5 3 5.5s3-2.2 3-5.5"/>
+        <line x1="16" y1="11" x2="22" y2="11"/>
+      </svg>
+    </div>
+    <div class="logo-name">ContractAI</div>
+  </div>
+  <div class="header-sub">Next-Generation Legal Documents</div>
+  <div class="header-tags">
+    <span class="tag">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Private
+    </span>
+    <span class="tag">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      Multilingual
+    </span>
+    <span class="tag">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="8" x2="23" y2="14"/><line x1="23" y1="8" x2="17" y2="14"/></svg>
+      No Account
+    </span>
+    <span class="tag">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      Instant
+    </span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="steps">
+    <div class="step active" id="si1"><div class="step-n"><span>01</span></div><div class="step-lbl">Type</div></div>
+    <div class="step" id="si2"><div class="step-n"><span>02</span></div><div class="step-lbl">Parties</div></div>
+    <div class="step" id="si3"><div class="step-n"><span>03</span></div><div class="step-lbl">Terms</div></div>
+    <div class="step" id="si4"><div class="step-n"><span>04</span></div><div class="step-lbl">Preview</div></div>
+    <div class="step" id="si5"><div class="step-n"><span>05</span></div><div class="step-lbl">Download</div></div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="card" id="step1">
+    <div class="card-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Contract Type &amp; Language
+    </div>
+    <div class="card-sub">Select category and output language</div>
+
+    <label>Category / Categoría</label>
+    <div class="sel-wrap"><select id="category">
+      <option value="Formal Contract">Formal Contract / Contrato Formal</option>
+      <option value="Informal Agreement">Informal Agreement / Acuerdo Informal</option>
+      <option value="Daily Life">Daily Life / Vida Cotidiana</option>
+      <option value="Agriculture">Agriculture / Agricultura</option>
+      <option value="Labor">Labor / Trabajo</option>
+      <option value="Real Estate">Real Estate / Bienes Raíces</option>
+      <option value="Services">Services / Servicios</option>
+      <option value="NDA">NDA / Confidencialidad</option>
+      <option value="Other">Other / Otro</option>
+    </select></div>
+
+    <label>Language Mode / Modo de Idioma</label>
+    <div class="sel-wrap"><select id="langMode" onchange="toggleLangOptions()">
+      <option value="single">Single Language — $4.99</option>
+      <option value="bilingual">Bilingual (2 Languages) — $7.99</option>
+    </select></div>
+
+    <div id="singleLangWrap">
+      <label>Language / Idioma</label>
+      <div class="sel-wrap"><select id="singleLang">
+        <option value="en">English</option><option value="es">Español</option>
+        <option value="fr">Français</option><option value="pt">Português</option>
+        <option value="de">Deutsch</option><option value="ru">Русский</option>
+        <option value="zh">中文</option><option value="ar">العربية</option>
+        <option value="ja">日本語</option><option value="ko">한국어</option>
+        <option value="it">Italiano</option><option value="hi">हिन्दी</option>
+      </select></div>
+    </div>
+
+    <div id="bilingualLangWrap" class="hidden">
+      <div class="bilingual-selector">
+        <div><label>Language A</label><div class="sel-wrap"><select id="langA">
+          <option value="en">English</option><option value="es">Español</option>
+          <option value="fr">Français</option><option value="pt">Português</option>
+          <option value="de">Deutsch</option><option value="ru">Русский</option>
+          <option value="zh">中文</option><option value="ar">العربية</option>
+          <option value="ja">日本語</option><option value="ko">한국어</option>
+          <option value="it">Italiano</option><option value="hi">हिन्दी</option>
+        </select></div></div>
+        <div class="lang-conn">⇄</div>
+        <div><label>Language B</label><div class="sel-wrap"><select id="langB">
+          <option value="es">Español</option><option value="en">English</option>
+          <option value="fr">Français</option><option value="pt">Português</option>
+          <option value="de">Deutsch</option><option value="ru">Русский</option>
+          <option value="zh">中文</option><option value="ar">العربية</option>
+          <option value="ja">日本語</option><option value="ko">한국어</option>
+          <option value="it">Italiano</option><option value="hi">हिन्दी</option>
+        </select></div></div>
+      </div>
+      <p class="bil-note">All fields will appear in both languages simultaneously</p>
+    </div>
+
+    <button class="btn btn-primary" onclick="goStep(2)">
+      Continue to Parties
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="card hidden" id="step2">
+    <div class="card-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Parties / Partes
+    </div>
+    <div class="card-sub">Add all parties to this agreement</div>
+    <label>Number of Parties</label>
+    <div class="sel-wrap"><select id="numParties" onchange="buildParties()">
+      <option value="2">2 Parties</option><option value="3">3 Parties</option>
+      <option value="4">4 Parties</option><option value="5">5 Parties</option>
+      <option value="6">6 Parties</option>
+    </select></div>
+    <div id="partiesContainer"></div>
+    <button class="btn btn-primary" onclick="goStep(3)">
+      Continue to Terms
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="card hidden" id="step3">
+    <div class="card-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="15" y2="16"/></svg>
+      Terms / Términos
+    </div>
+    <div class="card-sub">Define the agreement terms</div>
+    <div id="termsFields"></div>
+    <button class="btn btn-primary" onclick="buildPreview()">
+      Preview Contract
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="card hidden" id="step4">
+    <div class="card-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      Preview / Vista Previa
+    </div>
+    <div class="card-sub">Review before payment</div>
+    <div class="preview-box" id="previewContent"></div>
+    <div class="id-box">
+      <div class="id-lbl">Contract ID</div>
+      <div class="id-val" id="contractId"></div>
+      <div class="id-note">Share with all parties as tamper-evident proof</div>
+    </div>
+    <button class="btn btn-primary" style="margin-top:16px;" onclick="goStep(5)">
+      Proceed to Download
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="card hidden" id="step5">
+    <div class="card-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      Download / Descargar
+    </div>
+    <div class="card-sub">Complete payment to unlock your contract</div>
+    <div id="paymentSection"></div>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="card hidden" id="step6">
+    <div style="text-align:center;padding:16px 0 0;">
+      <div class="ok-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="ok-title">Thank you</div>
+      <div class="ok-sub">Payment confirmed · Pago confirmado</div>
+      <div class="ok-info">
+        <div class="ok-info-lbl">What happens now</div>
+        <p>Your contract is being sent to all parties via email and/or phone.<br><span style="color:var(--text-dim)">Tu contrato está siendo enviado a todas las partes.</span></p>
+      </div>
+      <div class="ok-id">Contract ID: <span id="confirmId"></span></div>
+    </div>
+    <div class="ok-foot">
+      <img src="../../cat.png" class="ok-cat" alt="">
+      <p class="ok-quote">"Así como el hombre busca la justicia en la igualdad, la sociedad busca el orden en la anarquía."</p>
+      <p class="ok-attr">— Pierre-Joseph Proudhon</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const STRIPE_SINGLE    = "https://buy.stripe.com/cNi14pgr2fDLeyB1nN8N202";
+const STRIPE_BILINGUAL = "https://buy.stripe.com/eVq7sN2Ac0IReyBc2r8N201";
+const LANG_NAMES = {en:'English',es:'Español',fr:'Français',pt:'Português',de:'Deutsch',ru:'Русский',zh:'中文',ar:'العربية',ja:'日本語',ko:'한국어',it:'Italiano',hi:'हिन्दी'};
+const LABELS = {
+  en:{start:"Start Date",end:"End Date",terms:"Terms & Conditions",oblig:"Obligations",name:"Full Name",role:"Role/Title",email:"Email",phone:"Phone",people:"Number of People",person:"Person"},
+  es:{start:"Fecha de Inicio",end:"Fecha de Fin",terms:"Términos y Condiciones",oblig:"Obligaciones",name:"Nombre Completo",role:"Rol/Título",email:"Correo",phone:"Teléfono",people:"Número de Personas",person:"Persona"},
+  fr:{start:"Date de début",end:"Date de fin",terms:"Termes et Conditions",oblig:"Obligations",name:"Nom Complet",role:"Rôle",email:"Email",phone:"Téléphone",people:"Nombre de personnes",person:"Personne"},
+  pt:{start:"Data de Início",end:"Data de Fim",terms:"Termos e Condições",oblig:"Obrigações",name:"Nome Completo",role:"Função",email:"Email",phone:"Telefone",people:"Número de Pessoas",person:"Pessoa"},
+  de:{start:"Startdatum",end:"Enddatum",terms:"Bedingungen",oblig:"Pflichten",name:"Vollständiger Name",role:"Rolle",email:"E-Mail",phone:"Telefon",people:"Personenanzahl",person:"Person"},
+  ru:{start:"Дата начала",end:"Дата окончания",terms:"Условия",oblig:"Обязательства",name:"Полное имя",role:"Роль",email:"Email",phone:"Телефон",people:"Количество людей",person:"Человек"},
+  zh:{start:"开始日期",end:"结束日期",terms:"条款",oblig:"义务",name:"全名",role:"角色",email:"邮件",phone:"电话",people:"人数",person:"人"},
+  ar:{start:"تاريخ البدء",end:"تاريخ الانتهاء",terms:"الشروط",oblig:"الالتزامات",name:"الاسم",role:"الدور",email:"البريد",phone:"الهاتف",people:"عدد",person:"شخص"},
+  ja:{start:"開始日",end:"終了日",terms:"契約条件",oblig:"義務",name:"氏名",role:"役職",email:"メール",phone:"電話",people:"人数",person:"人"},
+  ko:{start:"시작일",end:"종료일",terms:"약관",oblig:"의무",name:"성명",role:"역할",email:"이메일",phone:"전화",people:"인원",person:"사람"},
+  it:{start:"Data Inizio",end:"Data Fine",terms:"Termini",oblig:"Obblighi",name:"Nome",role:"Ruolo",email:"Email",phone:"Telefone",people:"Persone",person:"Persona"},
+  hi:{start:"प्रारंभ",end:"समाप्ति",terms:"नियम",oblig:"दायित्व",name:"नाम",role:"भूमिका",email:"ईमेल",phone:"फ़ोन",people:"संख्या",person:"व्यक्ति"}
+};
+
+const getLang  = () => document.getElementById('langMode').value==='single' ? document.getElementById('singleLang').value : document.getElementById('langA').value;
+const getLangB = () => document.getElementById('langB').value;
+const isBil    = () => document.getElementById('langMode').value==='bilingual';
+const val      = id => { const e=document.getElementById(id); return e?e.value||'':''; };
+const generateId = () => 'CAI-'+Date.now()+'-'+Math.random().toString(36).substr(2,9).toUpperCase();
+
+function toggleLangOptions() {
+  const m = document.getElementById('langMode').value;
+  document.getElementById('singleLangWrap').classList.toggle('hidden', m==='bilingual');
+  document.getElementById('bilingualLangWrap').classList.toggle('hidden', m==='single');
+}
+
+function goStep(n) {
+  for (let i=1; i<=5; i++) {
+    document.getElementById('step'+i).classList.add('hidden');
+    const si = document.getElementById('si'+i);
+    si.classList.remove('active','done');
+    if (i < n) si.classList.add('done');
+  }
+  document.getElementById('step6').classList.add('hidden');
+  document.getElementById('step'+n).classList.remove('hidden');
+  document.getElementById('si'+n).classList.add('active');
+  if (n===2) buildParties();
+  if (n===3) buildTerms();
+  if (n===5) buildPayment();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function buildParties() {
+  const n=parseInt(document.getElementById('numParties').value);
+  const lang=getLang(), langB=getLangB(), t=LABELS[lang]||LABELS.en, tB=LABELS[langB]||LABELS.en, bil=isBil();
+  let html='';
+  for (let i=1; i<=n; i++) {
+    html+=`<div class="party-block"><div class="party-block-title"><div class="party-dot"></div> Party ${i} / Parte ${i}</div>`;
+    if (bil) {
+      html+=`<div class="lang-pair"><div><div class="lang-badge a">${LANG_NAMES[lang]}</div><input type="text" id="pname${i}_a" placeholder="${t.name}"></div><div><div class="lang-badge b">${LANG_NAMES[langB]}</div><input type="text" id="pname${i}_b" placeholder="${tB.name}"></div></div>`;
+      html+=`<div class="lang-pair"><div><div class="lang-badge a">${LANG_NAMES[lang]}</div><input type="text" id="prole${i}_a" placeholder="${t.role}"></div><div><div class="lang-badge b">${LANG_NAMES[langB]}</div><input type="text" id="prole${i}_b" placeholder="${tB.role}"></div></div>`;
+    } else {
+      html+=`<label>${t.name}</label><input type="text" id="pname${i}" placeholder="${t.name}"><label>${t.role}</label><input type="text" id="prole${i}" placeholder="${t.role}">`;
+    }
+    html+=`<label>${t.people}</label><div class="sel-wrap"><select id="pcount${i}" onchange="buildPeople(${i})"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div><div id="people${i}"></div>`;
+    html+=`<div class="grid-2"><div><label>${t.email} <span class="optional">(optional)</span></label><input type="email" id="pemail${i}" placeholder="${t.email}"></div><div><label>${t.phone} <span class="optional">(optional)</span></label><input type="tel" id="pphone${i}" placeholder="${t.phone}"></div></div></div>`;
+  }
+  document.getElementById('partiesContainer').innerHTML=html;
+  for (let i=1; i<=n; i++) buildPeople(i);
+}
+
+function buildPeople(p) {
+  const el=document.getElementById('pcount'+p); if (!el) return;
+  const c=parseInt(el.value), t=LABELS[getLang()]||LABELS.en;
+  let h='';
+  for (let j=1; j<=c; j++) h+=`<input type="text" id="person${p}_${j}" placeholder="${t.person} ${j} — ${t.name}">`;
+  document.getElementById('people'+p).innerHTML=h;
+}
+
+function buildTerms() {
+  const lang=getLang(), langB=getLangB(), t=LABELS[lang]||LABELS.en, tB=LABELS[langB]||LABELS.en, bil=isBil();
+  let h=`<div class="grid-2"><div><label>${t.start}</label><input type="date" id="startDate"></div><div><label>${t.end}</label><input type="date" id="endDate"></div></div>`;
+  if (bil) {
+    h+=`<div class="lang-pair"><div><div class="lang-badge a">${LANG_NAMES[lang]}</div><textarea id="terms_a" rows="5" placeholder="${t.terms}..."></textarea></div><div><div class="lang-badge b">${LANG_NAMES[langB]}</div><textarea id="terms_b" rows="5" placeholder="${tB.terms}..."></textarea></div></div>`;
+    h+=`<div class="lang-pair"><div><div class="lang-badge a">${LANG_NAMES[lang]}</div><textarea id="oblig_a" rows="4" placeholder="${t.oblig}..."></textarea></div><div><div class="lang-badge b">${LANG_NAMES[langB]}</div><textarea id="oblig_b" rows="4" placeholder="${tB.oblig}..."></textarea></div></div>`;
+  } else {
+    h+=`<label>${t.terms}</label><textarea id="terms_a" rows="5" placeholder="${t.terms}..."></textarea><label>${t.oblig}</label><textarea id="oblig_a" rows="4" placeholder="${t.oblig}..."></textarea>`;
+  }
+  document.getElementById('termsFields').innerHTML=h;
+}
+
+function buildPreview() {
+  const lang=getLang(), langB=getLangB(), bil=isBil(), n=parseInt(val('numParties')||'2'), cid=generateId();
+  const sep='═══════════════════════════════════════';
+  let parties='';
+  for (let i=1; i<=n; i++) {
+    const nm  = bil ? (val(`pname${i}_a`)||`Party ${i}`) : (val(`pname${i}`)||`Party ${i}`);
+    const nmB = bil ? val(`pname${i}_b`) : '';
+    const rl  = bil ? val(`prole${i}_a`) : val(`prole${i}`);
+    const rlB = bil ? val(`prole${i}_b`) : '';
+    const em=val(`pemail${i}`), ph=val(`pphone${i}`);
+    parties+=` Party ${i}: ${nm}${nmB?' / '+nmB:''} — ${rl}${rlB?' / '+rlB:''}`;
+    if (em) parties+=` | ${em}`;
+    if (ph) parties+=` | ${ph}`;
+    parties+='\n';
+  }
+  const ta=val('terms_a'), tb=bil?val('terms_b'):'', oa=val('oblig_a'), ob=bil?val('oblig_b'):'';
+  const preview=`CONTRACT / CONTRATO\n${sep}\n Type     : ${val('category')}\n ID       : ${cid}\n Start    : ${val('startDate')||'—'} | End: ${val('endDate')||'—'}\n Language : ${LANG_NAMES[lang]||lang}${bil?' ⇄ '+(LANG_NAMES[langB]||langB):''}\n${sep}\n\nPARTIES:\n${parties}\n${sep}\n\nTERMS${bil?' ['+LANG_NAMES[lang]+']':''}:\n${ta||'(not specified)'}${bil?'\n\nTERMS ['+LANG_NAMES[langB]+']:\n'+(tb||'(not specified)'):''}\n\nOBLIGATIONS${bil?' ['+LANG_NAMES[lang]+']':''}:\n${oa||'(not specified)'}${bil?'\n\nOBLIGATIONS ['+LANG_NAMES[langB]+']:\n'+(ob||'(not specified)'):''}\n\n${sep}\nGenerated : ContractAI v3.0 | ${new Date().toISOString()}\nContract ID: ${cid}\n${sep}`.trim();
+  document.getElementById('previewContent').textContent=preview;
+  document.getElementById('contractId').textContent=cid;
+  goStep(4);
+}
+
+function buildPayment() {
+  const bil=isBil(), price=bil?7.99:4.99, priceStr=bil?'$7.99':'$4.99';
+  const link=bil?STRIPE_BILINGUAL:STRIPE_SINGLE;
+  const desc=bil?`${LANG_NAMES[getLang()]} ⇄ ${LANG_NAMES[getLangB()]}`:LANG_NAMES[getLang()];
+  const cid=val('contractId'), cat=val('category');
+  document.getElementById('paymentSection').innerHTML=`
+    <div class="pay-header">
+      <div class="pay-amount">${priceStr}</div>
+      <div class="pay-desc">${desc} · ${cat}</div>
+    </div>
+    <a href="${link}" target="_blank" rel="noopener" style="text-decoration:none;display:block;">
+      <button class="btn btn-stripe">Pay with Card (Stripe) — ${priceStr}</button>
+    </a>
+    <div class="divider"><span>or pay with crypto</span></div>
+    <button class="btn btn-xmr" id="xmrInitBtn" onclick="initXMR(${price},'${cid}','${cat}')">ɱ&nbsp; Pay with Monero (XMR)</button>
+    <div id="xmrPanelWrap" class="hidden">
+      <div class="xmr-panel">
+        <div class="xmr-head">
+          <div class="xmr-logo">ɱ</div>
+          <h3>Pago con Monero (XMR)</h3>
+        </div>
+        <div class="xmr-amt">
+          <div class="xmr-amt-n" id="xmrAmountDisplay">— XMR</div>
+          <div class="xmr-amt-u" id="xmrAmountUsd">calculando...</div>
+        </div>
+        <div class="xmr-addr">
+          <label>Dirección única para esta orden</label>
+          <div class="xmr-addr-val" id="xmrAddress">generando...</div>
+          <button class="xmr-copy" id="xmrCopyBtn" onclick="xmrCopyAddress()">Copiar dirección</button>
+        </div>
+        <div class="xmr-timer">Expira en: <span id="xmrCountdown">30:00</span></div>
+        <div class="xmr-dots">
+          <div class="conf-dot" id="dot0"></div>
+          <div class="conf-dot" id="dot1"></div>
+          <div class="conf-dot" id="dot2"></div>
+        </div>
+        <div class="xmr-status waiting" id="xmrStatus">Esperando pago...</div>
+        <details class="xmr-manual">
+          <summary>¿No se detecta automáticamente? Ingresa el TX ID</summary>
+          <input type="text" id="xmrTxInput" placeholder="TX ID (64 caracteres hex)..." maxlength="64"/>
+          <button class="xmr-manual-btn" onclick="xmrVerifyManual()">Verificar TX ID</button>
+        </details>
+      </div>
+    </div>
+    <p class="sec-note">Secure · Private · No account needed</p>
+    <button class="btn btn-outline" onclick="confirmPaymentStripe()">I've completed my Stripe payment</button>`;
+}
+
+function initXMR(amount_usd, order_id, contract_type) {
+  document.getElementById('xmrInitBtn').classList.add('hidden');
+  document.getElementById('xmrPanelWrap').classList.remove('hidden');
+  XMR.init(amount_usd, order_id, contract_type);
+}
+
+function confirmPaymentStripe() {
+  const cid = document.getElementById('contractId')?.textContent || val('contractId');
+  const el = document.getElementById('confirmId'); if (el) el.textContent=cid;
+  for (let i=1; i<=5; i++) document.getElementById('step'+i).classList.add('hidden');
+  document.getElementById('step6').classList.remove('hidden');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+const XMR = {
+  CREATE_ENDPOINT: '/functions/monero-create',
+  VERIFY_ENDPOINT: '/functions/monero-verify',
+  POLL_INTERVAL_MS: 30000,
+  REQUIRED_CONFIRMATIONS: 3,
+  state: { address:null, address_index:null, amount_xmr:null, amount_atomic:null, order_id:null, pollTimer:null, countdownTimer:null, expireAt:null, confirmed:false },
+
+  async init(amount_usd, order_id, contract_type='contract') {
+    XMR.state.order_id = order_id;
+    XMR.setStatus('waiting','Generando dirección de pago...');
+    try {
+      const res  = await fetch(XMR.CREATE_ENDPOINT, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount_usd,order_id,contract_type})});
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      Object.assign(XMR.state, {address:data.address,address_index:data.address_index,amount_xmr:data.amount_xmr,amount_atomic:data.amount_atomic,expireAt:data.expires_at});
+      document.getElementById('xmrAddress').textContent=data.address;
+      document.getElementById('xmrAmountDisplay').textContent=`${parseFloat(data.amount_xmr).toFixed(6)} XMR`;
+      document.getElementById('xmrAmountUsd').textContent=`≈ $${amount_usd} USD · 1 XMR = $${data.xmr_price_usd}`;
+      XMR.setStatus('waiting','Esperando pago... (verificando cada 30s)');
+      XMR.startCountdown(); XMR.startPolling();
+    } catch(err) { XMR.setStatus('error',`Error: ${err.message}`); }
+  },
+
+  startPolling() {
+    XMR.state.pollTimer = setInterval(async () => {
+      if (XMR.state.confirmed || Date.now()>XMR.state.expireAt) { clearInterval(XMR.state.pollTimer); return; }
+      await XMR.verify({auto:true});
+    }, XMR.POLL_INTERVAL_MS);
+  },
+
+  startCountdown() {
+    XMR.state.countdownTimer = setInterval(() => {
+      const r = XMR.state.expireAt - Date.now();
+      if (r<=0) { clearInterval(XMR.state.countdownTimer); document.getElementById('xmrCountdown').textContent='00:00'; return; }
+      const m=Math.floor(r/60000), s=Math.floor((r%60000)/1000);
+      document.getElementById('xmrCountdown').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    }, 1000);
+  },
+
+  async verify({auto=false, tx_id=null}={}) {
+    try {
+      const payload = tx_id ? {tx_id} : {address_index:XMR.state.address_index, amount_atomic:XMR.state.amount_atomic};
+      const res  = await fetch(XMR.VERIFY_ENDPOINT, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      XMR.updateDots(data.confirmations||0);
+      if (data.status==='confirmed') {
+        XMR.state.confirmed=true;
+        clearInterval(XMR.state.pollTimer); clearInterval(XMR.state.countdownTimer);
+        XMR.setStatus('confirmed',`Pago confirmado (${data.confirmations} confirmaciones)`);
+        XMR.updateDots(3,true); XMR.onPaymentConfirmed(data);
+      } else if (data.status==='pending') {
+        XMR.setStatus('pending',`Detectado — ${data.confirmations}/${XMR.REQUIRED_CONFIRMATIONS} confirmaciones`);
+      } else if (!auto) { XMR.setStatus('error','TX no encontrada. Verifica el ID.'); }
+    } catch(err) { XMR.setStatus('error',`Error: ${err.message}`); }
+  },
+
+  updateDots(n, allOk=false) {
+    for (let i=0; i<3; i++) {
+      const d=document.getElementById(`dot${i}`);
+      d.className='conf-dot';
+      if (allOk) d.classList.add('ok');
+      else if (i<n) d.classList.add('filled');
+    }
+  },
+
+  setStatus(type, msg) {
+    const el=document.getElementById('xmrStatus'); if (!el) return;
+    el.className=`xmr-status ${type}`; el.textContent=msg;
+  },
+
+  onPaymentConfirmed(data) {
+    const cid=XMR.state.order_id||'';
+    const el=document.getElementById('confirmId'); if (el) el.textContent=cid;
+    setTimeout(() => {
+      for (let i=1; i<=5; i++) document.getElementById('step'+i).classList.add('hidden');
+      document.getElementById('step6').classList.remove('hidden');
+      window.scrollTo({top:0, behavior:'smooth'});
+    }, 1500);
+  }
+};
+
+function xmrCopyAddress() {
+  const addr=XMR.state.address; if (!addr) return;
+  navigator.clipboard.writeText(addr).then(() => {
+    const btn=document.getElementById('xmrCopyBtn');
+    btn.textContent='Copiado'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent='Copiar dirección'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function xmrVerifyManual() {
+  const tx_id=document.getElementById('xmrTxInput').value.trim();
+  if (tx_id.length!==64) { XMR.setStatus('error','TX ID debe tener 64 caracteres'); return; }
+  XMR.setStatus('pending','Verificando TX ID...');
+  XMR.verify({tx_id});
+}
+</script>
+</body>
+</html>
