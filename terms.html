@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — ContractAI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#070c17;--bg2:#0f172a;--gold:#c9973c;--text:#e2e8f0;--dim:#64748b;--border:#1e2a3a}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;line-height:1.7;min-height:100dvh}
+a{color:var(--gold);text-decoration:none}
+a:hover{text-decoration:underline}
+
+header{border-bottom:1px solid var(--border);padding:1.25rem 2rem;display:flex;align-items:center;gap:1rem}
+.back{color:var(--dim);font-size:.875rem;letter-spacing:.05em;text-transform:uppercase}
+.back:hover{color:var(--gold);text-decoration:none}
+.site-name{font-family:'EB Garamond',serif;font-size:1.25rem;color:var(--gold);margin-left:auto}
+
+main{max-width:680px;margin:0 auto;padding:3rem 2rem 5rem}
+h1{font-family:'EB Garamond',serif;font-size:2.25rem;font-weight:600;color:#f8fafc;margin-bottom:.5rem}
+.meta{color:var(--dim);font-size:.875rem;margin-bottom:.25rem}
+.tldr{background:var(--bg2);border-left:3px solid var(--gold);padding:1rem 1.25rem;border-radius:0 8px 8px 0;margin:2rem 0;font-size:.9375rem;color:#f8fafc}
+h2{font-family:'EB Garamond',serif;font-size:1.375rem;font-weight:600;color:#f8fafc;margin:2.5rem 0 .75rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+p{margin-bottom:1rem;color:var(--text)}
+ul{margin:.5rem 0 1rem 1.5rem}
+li{margin-bottom:.4rem}
+
+.lang-toggle{display:flex;gap:.5rem;margin-bottom:2rem}
+.lang-btn{padding:.35rem .9rem;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--dim);font-size:.8125rem;cursor:pointer;font-family:'Inter',sans-serif;transition:all 150ms ease}
+.lang-btn.active{background:var(--gold);color:#070c17;border-color:var(--gold);font-weight:600}
+
+footer{border-top:1px solid var(--border);padding:1.5rem 2rem;text-align:center;color:var(--dim);font-size:.8125rem}
+footer a{color:var(--dim);margin:0 .75rem}
+footer a:hover{color:var(--gold)}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="/" class="back">← Back to app</a>
+  <span class="site-name">ContractAI</span>
+</header>
+
+<main>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="showLang('en',this)">English</button>
+    <button class="lang-btn" onclick="showLang('es',this)">Español</button>
+  </div>
+
+  <!-- ENGLISH -->
+  <div id="lang-en">
+    <h1>Terms of Service</h1>
+    <p class="meta">ContractAI · Last updated: May 25, 2026</p>
+    <div class="tldr"><strong>TL;DR —</strong> This is a tool that drafts contract templates. It is not a lawyer. Have a lawyer review anything that matters.</div>
+
+    <h2>What you're buying</h2>
+    <p>A one-time, generated contract document delivered instantly in your browser. $4.99 single language · $7.99 bilingual.</p>
+
+    <h2>Not legal advice</h2>
+    <p>ContractAI generates templates. It is <strong>not</strong> a substitute for a licensed attorney in your jurisdiction. We make no claim that any generated contract is valid, enforceable, or appropriate for your specific situation. <strong>Get a lawyer to review before signing anything that matters.</strong></p>
+
+    <h2>Refunds</h2>
+    <p>Digital delivery is instant and final. If the tool fails to deliver your document due to a technical error, contact us within 7 days for a refund or re-delivery → <a href="mailto:klaudiayelgato@proton.me">klaudiayelgato@proton.me</a></p>
+
+    <h2>Your responsibility</h2>
+    <ul>
+      <li>You must be 18+.</li>
+      <li>You are responsible for the accuracy of the information you enter.</li>
+      <li>You are responsible for using the document legally and ethically.</li>
+      <li>Don't use ContractAI for fraud, coercion, or anything illegal.</li>
+    </ul>
+
+    <h2>As-is, no warranty</h2>
+    <p>The service is provided "as is" without warranty of any kind. We are not liable for any damages, losses, or legal consequences arising from the use of any document generated here.</p>
+
+    <h2>Limit of liability</h2>
+    <p>Maximum liability = the amount you paid ($4.99 or $7.99).</p>
+
+    <h2>Governing law</h2>
+    <p>California, USA.</p>
+
+    <h2>Contact</h2>
+    <p><a href="mailto:klaudiayelgato@proton.me">klaudiayelgato@proton.me</a></p>
+  </div>
+
+  <!-- ESPAÑOL -->
+  <div id="lang-es" style="display:none">
+    <h1>Términos de Servicio</h1>
+    <p class="meta">ContractAI · Última actualización: 25 de mayo de 2026</p>
+    <div class="tldr"><strong>En resumen —</strong> Esta es una herramienta que genera plantillas de contratos. No es un abogado. Hacé revisar por un abogado todo lo que importe.</div>
+
+    <h2>Qué estás comprando</h2>
+    <p>Un documento de contrato generado una sola vez, entregado al instante en tu navegador. USD $4.99 idioma único · USD $7.99 bilingüe.</p>
+
+    <h2>No es asesoramiento legal</h2>
+    <p>ContractAI genera plantillas. <strong>No</strong> es un sustituto de un abogado matriculado en tu jurisdicción. No garantizamos que ningún contrato generado sea válido, ejecutable o apropiado para tu situación específica. <strong>Consultá un abogado antes de firmar cualquier cosa que importe.</strong></p>
+
+    <h2>Reembolsos</h2>
+    <p>La entrega digital es instantánea y definitiva. Si la herramienta no entrega tu documento por un error técnico, contactanos dentro de los 7 días para un reembolso o re-entrega → <a href="mailto:klaudiayelgato@proton.me">klaudiayelgato@proton.me</a></p>
+
+    <h2>Tu responsabilidad</h2>
+    <ul>
+      <li>Debés tener 18 años o más.</li>
+      <li>Sos responsable de la exactitud de la información que ingresás.</li>
+      <li>Sos responsable de usar el documento de forma legal y ética.</li>
+      <li>No uses ContractAI para fraude, coerción o cualquier actividad ilegal.</li>
+    </ul>
+
+    <h2>Tal cual, sin garantía</h2>
+    <p>El servicio se provee "tal cual" sin garantía de ningún tipo. No somos responsables por daños, pérdidas o consecuencias legales derivadas del uso de cualquier documento generado aquí.</p>
+
+    <h2>Límite de responsabilidad</h2>
+    <p>Responsabilidad máxima = el monto que pagaste (USD $4.99 o $7.99).</p>
+
+    <h2>Ley aplicable</h2>
+    <p>California, Estados Unidos.</p>
+
+    <h2>Contacto</h2>
+    <p><a href="mailto:klaudiayelgato@proton.me">klaudiayelgato@proton.me</a></p>
+  </div>
+</main>
+
+<footer>
+  <a href="/">App</a>
+  <a href="/privacy.html">Privacy</a>
+  <a href="/terms.html">Terms</a>
+  <a href="mailto:klaudiayelgato@proton.me">Contact</a>
+</footer>
+
+<script>
+function showLang(lang, btn) {
+  document.getElementById('lang-en').style.display = lang === 'en' ? '' : 'none';
+  document.getElementById('lang-es').style.display = lang === 'es' ? '' : 'none';
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

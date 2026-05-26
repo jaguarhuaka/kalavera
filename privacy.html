@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — ContractAI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#070c17;--bg2:#0f172a;--gold:#c9973c;--text:#e2e8f0;--dim:#64748b;--border:#1e2a3a}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;line-height:1.7;min-height:100dvh}
+a{color:var(--gold);text-decoration:none}
+a:hover{text-decoration:underline}
+
+header{border-bottom:1px solid var(--border);padding:1.25rem 2rem;display:flex;align-items:center;gap:1rem}
+.back{color:var(--dim);font-size:.875rem;letter-spacing:.05em;text-transform:uppercase}
+.back:hover{color:var(--gold);text-decoration:none}
+.site-name{font-family:'EB Garamond',serif;font-size:1.25rem;color:var(--gold);margin-left:auto}
+
+main{max-width:680px;margin:0 auto;padding:3rem 2rem 5rem}
+h1{font-family:'EB Garamond',serif;font-size:2.25rem;font-weight:600;color:#f8fafc;margin-bottom:.5rem}
+.meta{color:var(--dim);font-size:.875rem;margin-bottom:.25rem}
+.tldr{background:var(--bg2);border-left:3px solid var(--gold);padding:1rem 1.25rem;border-radius:0 8px 8px 0;margin:2rem 0;font-size:.9375rem;color:#f8fafc}
+h2{font-family:'EB Garamond',serif;font-size:1.375rem;font-weight:600;color:#f8fafc;margin:2.5rem 0 .75rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+p{margin-bottom:1rem;color:var(--text)}
+ul{margin:.5rem 0 1rem 1.5rem}
+li{margin-bottom:.4rem}
+
+.lang-toggle{display:flex;gap:.5rem;margin-bottom:2rem}
+.lang-btn{padding:.35rem .9rem;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--dim);font-size:.8125rem;cursor:pointer;font-family:'Inter',sans-serif;transition:all 150ms ease}
+.lang-btn.active{background:var(--gold);color:#070c17;border-color:var(--gold);font-weight:600}
+
+footer{border-top:1px solid var(--border);padding:1.5rem 2rem;text-align:center;color:var(--dim);font-size:.8125rem}
+footer a{color:var(--dim);margin:0 .75rem}
+footer a:hover{color:var(--gold)}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="/" class="back">← Back to app</a>
+  <span class="site-name">ContractAI</span>
+</header>
+
+<main>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="showLang('en',this)">English</button>
+    <button class="lang-btn" onclick="showLang('es',this)">Español</button>
+  </div>
+
+  <!-- ENGLISH -->
+  <div id="lang-en">
+    <h1>Privacy Policy</h1>
+    <p class="meta">ContractAI · Last updated: May 25, 2026</p>
+    <div class="tldr"><strong>TL;DR —</strong> We don't want your data. We don't collect it. We don't have it.</div>
+
+    <h2>What we collect</h2>
+    <ul>
+      <li><strong>On this site:</strong> nothing. No accounts, no tracking pixels, no analytics, no cookies beyond what Cloudflare uses for basic anti-abuse.</li>
+      <li><strong>Payments:</strong> handled entirely by Stripe (cards) or your own Monero wallet (XMR). We never see your card number, your billing address, or your wallet keys. See Stripe's policy at <a href="https://stripe.com/privacy" target="_blank">stripe.com/privacy</a></li>
+      <li><strong>Your contract:</strong> generated in your browser and downloaded by you. Never sent to our servers. Never stored. Once you close the tab, it's gone from our side.</li>
+    </ul>
+
+    <h2>What we never do</h2>
+    <p>No Google, no Facebook pixel, no Meta, no third-party analytics. No newsletters. No selling or sharing data — there is nothing to sell.</p>
+
+    <h2>Contact</h2>
+    <p>Privacy questions → <a href="mailto:klaudiayelgato@proton.me">klaudiayelgato@proton.me</a></p>
+
+    <h2>Changes</h2>
+    <p>If this policy changes, we update the date above. Continued use means you accept it.</p>
+  </div>
+
+  <!-- ESPAÑOL -->
+  <div id="lang-es" style="display:none">
+    <h1>Política de Privacidad</h1>
+    <p class="meta">ContractAI · Última actualización: 25 de mayo de 2026</p>
+    <div class="tldr"><strong>En resumen —</strong> No queremos tus datos. No los recopilamos. No los tenemos.</div>
+
+    <h2>Qué recopilamos</h2>
+    <ul>
+      <li><strong>En este sitio:</strong> nada. Sin cuentas, sin píxeles de seguimiento, sin analíticas, sin cookies más allá de lo que usa Cloudflare para protección básica.</li>
+      <li><strong>Pagos:</strong> gestionados íntegramente por Stripe (tarjetas) o tu propia billetera Monero (XMR). Nunca vemos tu número de tarjeta, tu dirección de facturación ni tus claves de billetera. Ver política de Stripe en <a href="https://stripe.com/privacy" target="_blank">stripe.com/privacy</a></li>
+      <li><strong>Tu contrato:</strong> generado en tu navegador y descargado por vos. Nunca se envía a nuestros servidores. Nunca se almacena. Al cerrar la pestaña, desaparece de nuestra parte.</li>
+    </ul>
+
+    <h2>Lo que nunca hacemos</h2>
+    <p>Sin Google, sin píxel de Facebook, sin Meta, sin analíticas de terceros. Sin newsletters. Sin venta ni compartición de datos — no hay nada que vender.</p>
+
+    <h2>Contacto</h2>
+    <p>Consultas de privacidad → <a href="mailto:klaudiayelgato@proton.me">klaudiayelgato@proton.me</a></p>
+
+    <h2>Cambios</h2>
+    <p>Si esta política cambia, actualizamos la fecha arriba. El uso continuado implica aceptación.</p>
+  </div>
+</main>
+
+<footer>
+  <a href="/">App</a>
+  <a href="/privacy.html">Privacy</a>
+  <a href="/terms.html">Terms</a>
+  <a href="mailto:klaudiayelgato@proton.me">Contact</a>
+</footer>
+
+<script>
+function showLang(lang, btn) {
+  document.getElementById('lang-en').style.display = lang === 'en' ? '' : 'none';
+  document.getElementById('lang-es').style.display = lang === 'es' ? '' : 'none';
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
